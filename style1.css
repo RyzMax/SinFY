@@ -1,0 +1,60 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #d65ea2 0%, #f7a6c6 50%, #f9d1e0 100%);
+    font-family: sans-serif;
+    font-weight: bold;
+}
+* {
+      font-family: "Tiny5", sans-serif;
+}
+
+
+.container {
+    text-align: center;
+}
+
+h1 {
+    color: white;
+    font-size: 4rem;
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    letter-spacing: 0.1em;
+    opacity: 0;
+    transform: translateY(-100px);
+    animation: slideDownFade 1.5s ease-out forwards; 
+}
+
+.knopka {
+    background: white;
+    color: #d65ea2;
+    border: 3px solid white;
+    padding: 1rem 2rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+.knopka:hover {
+    background: #d65ea2;
+    color: white;
+    transform: scale(1.05);
+}
+
+@keyframes slideDownFade {
+    0% {
+        opacity: 0;
+        transform: translateY(-100px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

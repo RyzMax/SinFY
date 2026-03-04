@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дашборд - Загрузка музыки</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+     <link rel="icon" href="note.png" type="image/x-icon">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&family=Tiny5&display=swap" rel="stylesheet">
+
+
+</head>
+<body>
+    <header class="header">
+        <h1>Дашборд</h1>
+        <a href="index.html" class="back-btn">На сайт</a>
+    </header>
+
+    <div class="dashboard">
+        <!-- Карточки статистики -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Всего треков</h3>
+                <span class="stat-number">1,247</span>
+            </div>
+            <div class="stat-card">
+                <h3>Загрузок сегодня</h3>
+                <span class="stat-number">23</span>
+            </div>
+            <div class="stat-card">
+                <h3>Активных пользователей</h3>
+                <span class="stat-number">456</span>
+            </div>
+            <div class="stat-card">
+                <h3>Общий объём</h3>
+                <span class="stat-number">5.2 GB</span>
+            </div>
+        </div>
+
+        <!-- Графики -->
+        <div class="charts-row">
+            <div class="chart-card">
+                <h3>Загрузки по дням</h3>
+                <canvas id="uploadsChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <h3>Популярные жанры</h3>
+                <canvas id="genresChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Таблица треков -->
+        <div class="table-card">
+            <h3>Последние треки</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Название</th>
+                        <th>Жанр</th>
+                        <th>Дата</th>
+                        <th>Просмотры</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Track 1</td>
+                        <td>Rock</td>
+                        <td>2026-02-10</td>
+                        <td>150</td>
+                        <td><button>Удалить</button></td>
+                    </tr>
+   
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>

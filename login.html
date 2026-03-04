@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма входа</title>
+    <link rel="stylesheet" href="styleslogin.css">
+    <link rel="icon" href="note.png" type="image/x-icon">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tiny5&display=swap" rel="stylesheet">
+
+
+</head>
+<body>
+    <div class="login-form" id="loginForm">
+ 
+        <div class="login-section active" id="loginSection">
+            <input type="text" class="input-field" placeholder="Логин">
+            <input type="password" class="input-field" placeholder="Пароль">
+            <button class="login-btn" onclick="login()">Войти</button>
+        </div>
+        
+  
+        <button class="register-toggle" onclick="toggleForm()">Зарегистрироваться</button>
+        
+    
+        <div class="register-section" id="registerSection">
+            <input type="email" class="input-field" placeholder="Почта">
+            <input type="text" class="input-field" placeholder="Логин">
+            <input type="password" class="input-field" placeholder="Пароль">
+            <input type="password" class="input-field" placeholder="Повторить пароль">
+            <button class="login-btn" onclick="register()">Зарегистрироваться</button>
+            <button class="register-toggle back-btn" onclick="toggleForm()">Войти</button>
+        </div>
+    </div>
+
+    <script>
+        function toggleForm() {
+            const loginSection = document.getElementById('loginSection');
+            const registerSection = document.getElementById('registerSection');
+            
+            loginSection.classList.toggle('active');
+            registerSection.classList.toggle('active');
+        }
+
+        function login() {
+            alert('Тест');
+        }
+
+        function register() {
+            alert('Тест');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Загрузка трека</title>
+    <link rel="stylesheet" href="upload.css">
+    <link rel="icon" href="note.png" type="image/x-icon">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tiny5&display=swap" rel="stylesheet">
+
+
+</head>
+<body>
+<header class="header">
+    <h1>Загрузка трека</h1>
+    <a href="index.html" class="back-link">← Назад к музыке</a>
+</header>
+
+<main class="page">
+    <form class="upload-form" method="post" enctype="multipart/form-data">
+
+        <div class="form-group">
+            <label for="title">Название трека</label>
+            <input type="text" id="title" name="title" required>
+        </div>
+
+
+        <div class="form-group">
+            <label for="author">Автор / исполнитель</label>
+            <input type="text" id="author" name="author" required>
+        </div>
+
+
+        <div class="form-group">
+            <label for="description">Описание</label>
+            <textarea id="description" name="description" rows="4"
+                      placeholder="Краткое описание, настроение, теги..."></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="audio">Файл музыки</label>
+            <input type="file" id="audio" name="audio" accept="audio/*" required>
+        </div>
+
+        <div class="form-group preview-group">
+    <div class="preview-left">
+       
+        <div class="form-group">
+            <label for="cover">Обложка (картинка)</label>
+            <input type="file" id="cover" name="cover" accept="image/*" required>
+        </div>
+    </div>
+
+    <div class="preview-right">
+        <span class="preview-label">Предпросмотр карточки трека</span>
+        <div class="track-card">
+            <img id="coverPreview" src="" alt="Обложка">
+            <div class="track-info">
+                <h2 id="previewTitle">Название трека</h2>
+                <p id="previewAuthor" class="track-author">Автор / Исполнитель</p>
+                <p id="previewDescription" class="track-description">
+                    Здесь будет краткое описание трека.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+        <div class="form-actions">
+            <button type="submit">Загрузить трек</button>
+        </div>
+    </form>
+</main>
+
+<script src="upload.js"></script>
+</body>
+</html>

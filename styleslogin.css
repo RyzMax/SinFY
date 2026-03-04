@@ -1,0 +1,129 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #f4c4f3 0%, #d89ff7 100%);
+    font-family: Arial, sans-serif;
+}
+* {
+     font-family: "Tiny5", sans-serif;
+}
+
+
+.login-form {
+    width: 300px;
+    padding: 40px 30px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    transition: all 0.4s ease;
+}
+
+.login-form.register-mode {
+    height: 500px;
+    padding: 30px;
+}
+
+.input-field {
+    width: 100%;
+    height: 45px;
+    margin-bottom: 20px;
+    padding: 0 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
+    background: transparent;
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: #d89ff7;
+}
+
+.login-btn {
+    width: 100%;
+    height: 50px;
+    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s;
+    margin-bottom: 10px;
+}
+
+.login-btn:hover {
+    transform: translateY(-2px);
+}
+
+.register-toggle {
+    width: 100%;
+    height: 40px;
+    background: transparent;
+    color: #d89ff7;
+    border: 2px solid #d89ff7;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.register-toggle:hover {
+    background: #d89ff7;
+    color: white;
+}
+
+.register-form {
+    display: none;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s ease;
+}
+
+.register-form.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.back-btn {
+    background: transparent;
+    color: #666;
+    border-color: #ccc;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.back-btn:hover {
+    background: #f0f0f0;
+    color: #333;
+}
+
+.login-section, .register-section {
+    transition: all 0.4s ease;
+}
+
+.login-section.active, .register-section.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.login-section:not(.active), .register-section:not(.active) {
+    display: none;
+    opacity: 0;
+    transform: translateY(-20px);
+}
+
+.login-form {
+
+    min-height: 280px;
+    transition: all 0.4s ease;
+}
