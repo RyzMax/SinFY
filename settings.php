@@ -52,7 +52,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmtUpd->execute([$user['login'], $about, $avatarPath, $userId]);
         $message = 'Данные профиля обновлены';
         $_SESSION['user_login'] = $user['login'];
-        // обновим данные
         $user['about'] = $about;
         $user['avatar'] = $avatarPath;
     }

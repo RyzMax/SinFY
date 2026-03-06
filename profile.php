@@ -1,7 +1,22 @@
 <?php
 require 'db.php';
 
+
 $userId = $_SESSION['user_id'] ?? null;
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['follow_action']) && $userId) {
+    $targetId = (int)($_POST['target_id'] ?? 0);
+    if ($targetId && $targetId !== (int)$userId) {
+        if ($_POST['follow_action'] === 'follow') {
+            $stmt = $pdo->prepare('INSERT IGNORE INTO follows (follower_id, followed_id) VALUES (?, ?)');
+            $stmt->execute([$userId, $targetId]);
+        } elseif ($_POST['follow_action'] === 'unfollow') {
+            $stmt = $pdo->prepare('DELETE FROM follows WHERE follower_id = ? AND followed_id = ?');
+            $stmt->execute([$userId, $targetId]);
+        }
+    }
+    header('Location: profile.php?user=' . $targetId);
+    exit;
+}
 $profileUserId = $_GET['user'] ?? null;
 
 if (!$profileUserId) {
@@ -12,27 +27,37 @@ if (!$profileUserId) {
     $profileUserId = $userId;
 }
 
-// Получаем данные профиля
 $stmt = $pdo->prepare('SELECT * FROM users WHERE id = ?');
 $stmt->execute([$profileUserId]);
 $profileUser = $stmt->fetch(PDO::FETCH_ASSOC);
+
+$isOwnProfile = ($profileUserId == $userId);
+
+
+$isFollowing = false;
+if ($userId && !$isOwnProfile) {
+    $stmtF = $pdo->prepare('SELECT 1 FROM follows WHERE follower_id = ? AND followed_id = ? LIMIT 1');
+    $stmtF->execute([$userId, $profileUserId]);
+    $isFollowing = (bool)$stmtF->fetchColumn();
+}
+
 
 if (!$profileUser) {
     die('Пользователь не найден');
 }
 
-// Получаем треки автора
+
 $stmtTracks = $pdo->prepare('SELECT * FROM tracks WHERE user_id = ? ORDER BY upload_date DESC LIMIT 12');
 $stmtTracks->execute([$profileUserId]);
 $tracks = $stmtTracks->fetchAll(PDO::FETCH_ASSOC);
 
-// Заголовок страницы
+
 $isOwnProfile = $profileUserId == $userId;
 $pageTitle = $isOwnProfile ? 'Мой профиль' : 'Профиль ' . $profileUser['login'];
 ?>
 
 <?php
-// Обработка удаления (ТОЛЬКО для своего профиля)
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_track_id']) && $isOwnProfile) {
     $trackId = $_POST['delete_track_id'];
     
@@ -99,11 +124,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_track_id']) &&
             <p class="user-description">
                 <?php echo nl2br(htmlspecialchars($profileUser['about'] ?? 'Описание пока не заполнено.')); ?>
             </p>
-            <div class="user-stats">
-                <span class="stat"><?php echo count($tracks); ?> треков</span>
-                <span class="stat">0 прослушиваний</span>
-                <span class="stat">0 подписчиков</span>
-            </div>
+                <div class="user-stats">
+        <span class="stat"><?php echo count($tracks); ?> треков</span>
+        <span class="stat">
+            <?php
+ 
+            $followersCount = $pdo->prepare('SELECT COUNT(*) FROM follows WHERE followed_id = ?');
+            $followersCount->execute([$profileUserId]);
+            echo $followersCount->fetchColumn() . ' подписчиков';
+            ?>
+        </span>
+        <span class="stat">
+            <?php
+    
+            $followingCount = $pdo->prepare('SELECT COUNT(*) FROM follows WHERE follower_id = ?');
+            $followingCount->execute([$profileUserId]);
+            echo $followingCount->fetchColumn() . ' подписок';
+            ?>
+        </span>
+    </div>
+
+    <?php if ($isOwnProfile): ?>
+        <a href="settings.php" class="edit-profile-btn">Редактировать профиль</a>
+    <?php else: ?>
+        <form method="post" style="margin-top: 12px;">
+            <input type="hidden" name="target_id" value="<?php echo $profileUserId; ?>">
+            <?php if ($isFollowing): ?>
+                <button type="submit" name="follow_action" value="unfollow" class="follow-btn unfollow">
+                    Отписаться
+                </button>
+            <?php else: ?>
+                <button type="submit" name="follow_action" value="follow" class="follow-btn">
+                    Подписаться
+                </button>
+            <?php endif; ?>
+        </form>
+    <?php endif; ?>
             <?php if ($isOwnProfile): ?>
                 <a href="settings.php" class="edit-profile-btn">Редактировать профиль</a>
             <?php endif; ?>

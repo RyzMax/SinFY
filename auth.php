@@ -21,7 +21,7 @@ if ($action === 'register') {
         exit;
     }
 
-    // Проверка занятости логина/почты
+
     $stmt = $pdo->prepare('SELECT id FROM users WHERE login = ? OR email = ?');
     $stmt->execute([$login, $email]);
     if ($stmt->fetch()) {
@@ -30,7 +30,7 @@ if ($action === 'register') {
         exit;
     }
 
-    // Хэш пароля
+ 
     $hash = password_hash($password, PASSWORD_DEFAULT);
 
     $stmt = $pdo->prepare('INSERT INTO users (email, login, password_hash) VALUES (?, ?, ?)');
@@ -55,9 +55,10 @@ if ($action === 'login') {
         exit;
     }
 
-    // Сохраняем данные пользователя в сессию
+
     $_SESSION['user_id'] = $user['id'];
     $_SESSION['user_login'] = $user['login'];
+    $_SESSION['is_admin'] = (int)$user['is_admin'];
 
     header('Location: profile.php');
     exit;

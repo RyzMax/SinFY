@@ -192,3 +192,16 @@ body { font-family: Arial, sans-serif; background: #f4f4f4; }
     border-left: 4px solid #dc3545;
     margin-bottom: 20px;
 }
+
+.follow-btn {
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+    background: #d32f2f;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 600;
+}
+.follow-btn.unfollow {
+    background: #757575;
+}
