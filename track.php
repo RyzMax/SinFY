@@ -306,6 +306,141 @@ try {
         .comment-item.depth-2 { margin-left: 70px; background: linear-gradient(90deg, #f0f4ff 0%, #f8f9ff 100%); border-left: 4px solid #4facfe; }
         .comment-avatar { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 3px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
         .replies-count { color: #667eea; font-weight: 600; font-size: 14px; margin: 12px 0; padding: 4px 12px; background: rgba(102, 126, 234, 0.1); border-radius: 20px; display: inline-block; }
+        .player-card {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 16px;
+    align-items: center;
+    background: linear-gradient(135deg, #1f1c2c 0%, #928dab 100%);
+    padding: 16px 20px;
+    border-radius: 18px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+    color: #fff;
+    margin-bottom: 24px;
+}
+
+.player-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.player-cover {
+    width: 64px;
+    height: 64px;
+    border-radius: 12px;
+    background-size: cover;
+    background-position: center;
+    background-color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+}
+
+.player-info {
+    display: flex;
+    flex-direction: column;
+}
+.player-title {
+    font-weight: 600;
+    font-size: 16px;
+}
+.player-artist {
+    font-size: 13px;
+    opacity: 0.8;
+}
+
+.player-center {
+    padding: 0 10px;
+}
+
+.player-controls {
+    display: grid;
+    grid-template-columns: 32px auto 1fr auto;
+    gap: 8px;
+    align-items: center;
+}
+
+.player-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: #ffffff22;
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+}
+.player-btn:hover {
+    background: #ffffff44;
+    transform: scale(1.05);
+}
+
+#seek {
+    width: 100%;
+    accent-color: #ffca28;
+    cursor: pointer;
+}
+.player-time {
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+.player-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+.player-volume {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 14px;
+}
+#volume {
+    width: 80px;
+    accent-color: #ffca28;
+    cursor: pointer;
+}
+
+.download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    background: #ffca28;
+    color: #1f1c2c;
+    text-decoration: none;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    transition: 0.2s;
+}
+.download-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+}
+
+
+@media (max-width: 700px) {
+    .player-card {
+        grid-template-columns: 1fr;
+        row-gap: 12px;
+    }
+    .player-right {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
     </style>
 </head>
 
@@ -349,9 +484,35 @@ try {
                 <span>⏱️ <?php echo date('d.m.Y H:i', strtotime($track['upload_date'])); ?></span>
                 <span>▶️ <?php echo (int)($track['plays'] ?? 0); ?> просл.</span>
             </div>
-            <audio controls class="main-player">
-                <source src="<?php echo htmlspecialchars($track['audio_path']); ?>" type="audio/mpeg">
-            </audio>
+            <div class="player-card">
+
+
+    <div class="player-center">
+        <audio id="audio-player" src="<?php echo htmlspecialchars($track['audio_path']); ?>"></audio>
+
+        <div class="player-controls">
+            <button id="play-pause" class="player-btn">▶️</button>
+            <span id="current-time" class="player-time">0:00</span>
+            <input id="seek" type="range" min="0" value="0" step="0.1">
+            <span id="duration" class="player-time">0:00</span>
+        </div>
+    </div>
+
+    <div class="player-right">
+        <div class="player-volume">
+            <span>🔊</span>
+            <input id="volume" type="range" min="0" max="1" step="0.01" value="1">
+        </div>
+
+    
+        <a href="<?php echo htmlspecialchars($track['audio_path']); ?>" 
+           download="<?php echo htmlspecialchars($track['title'] . '.mp3'); ?>" 
+           class="download-btn">
+            ⬇️ Скачать
+        </a>
+    </div>
+</div>
+
         </div>
     </section>
 
@@ -449,6 +610,73 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const audio   = document.getElementById('audio-player');
+    const playBtn = document.getElementById('play-pause');
+    const seek    = document.getElementById('seek');
+    const volume  = document.getElementById('volume');
+    const curTime = document.getElementById('current-time');
+    const durTime = document.getElementById('duration');
+
+    if (!audio) {
+        console.log('Audio element not found');
+        return;
+    }
+
+    let isDragging = false;
+
+    function formatTime(sec) {
+        const m = Math.floor(sec / 60);
+        const s = Math.floor(sec % 60).toString().padStart(2, '0');
+        return `${m}:${s}`;
+    }
+
+
+    audio.addEventListener('loadedmetadata', () => {
+        seek.max = audio.duration;
+        durTime.textContent = formatTime(audio.duration);
+    });
+
+
+    audio.addEventListener('timeupdate', () => {
+        if (!isDragging) {
+            seek.value = audio.currentTime;
+            curTime.textContent = formatTime(audio.currentTime);
+        }
+    });
+
+
+    seek.addEventListener('mousedown', () => isDragging = true);
+    document.addEventListener('mouseup', () => isDragging = false);
+    
+    seek.addEventListener('input', () => {
+        audio.currentTime = seek.value;
+        curTime.textContent = formatTime(seek.value);
+    });
+
+
+    volume.addEventListener('input', () => {
+        audio.volume = volume.value;
+    });
+
+
+    playBtn.addEventListener('click', async () => {
+        try {
+            if (audio.paused) {
+                await audio.play();
+                playBtn.textContent = '⏸️';
+            } else {
+                audio.pause();
+                playBtn.textContent = '▶️';
+            }
+        } catch (err) {
+            console.log('Play error:', err);
+        }
+    });
+});
+
 </script>
 </body>
 </html>
