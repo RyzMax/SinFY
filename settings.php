@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <title>Настройки профиля</title>
-    <link rel="stylesheet" href="profile.css">
+    <link rel="stylesheet" href="assets/css/profile.css">
 </head>
 <body>
 <header class="header">

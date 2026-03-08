@@ -88,9 +88,9 @@ $lastTracks = $stmtLast->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Дашборд - Maxusic</title>
-    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="assets/css/dashboard.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="icon" href="note.png" type="image/x-icon">
+    <link rel="icon" href="assets/images/note.png" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&family=Tiny5&display=swap" rel="stylesheet">
@@ -229,6 +229,6 @@ window.dashboardData = {
         genres: <?php echo json_encode($genresRaw); ?>
     };
     </script>
-    <script src="dashboard.js"></script>
+    <script src="assets/js/dashboard.js"></script>
 </body>
 </html>

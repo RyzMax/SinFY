@@ -48,7 +48,7 @@ $reports = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Жалобы на комментарии - SinFY Admin</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
     <style>
         .admin-container { max-width: 1200px; margin: 20px auto; padding: 20px; }
         .admin-table { width: 100%; border-collapse: collapse; margin-top: 20px; }

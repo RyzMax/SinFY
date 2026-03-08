@@ -231,8 +231,8 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($track['title'] ?? 'Трек'); ?> - SinFY</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="note.png" type="image/x-icon">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" href="assets/images/note.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Tiny5&display=swap" rel="stylesheet">
     
     <style>

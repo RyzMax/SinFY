@@ -71,8 +71,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Загрузить трек - Maxusic</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="note.png">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" href="assets/images/note.png">
     <link href="https://fonts.googleapis.com/css2?family=Tiny5&display=swap" rel="stylesheet">
     <style>
         .upload-page { max-width: 600px; margin: 0 auto; padding: 20px; }
