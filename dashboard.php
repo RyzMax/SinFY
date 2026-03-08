@@ -105,7 +105,7 @@ window.dashboardData = {
     <header class="header">
         <h1>Дашборд</h1>
         <div>
-            <a href="moderation.php" class="back-btn">Модерация</a>
+            <a href="admin_reports.php" class="back-btn">Модерация</a>
             <a href="index.php" class="back-btn">На сайт</a>
         </div>
     </header>

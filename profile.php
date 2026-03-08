@@ -160,9 +160,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_track_id']) &&
             <?php endif; ?>
         </form>
     <?php endif; ?>
-            <?php if ($isOwnProfile): ?>
-                <a href="settings.php" class="edit-profile-btn">Редактировать профиль</a>
-            <?php endif; ?>
         </div>
     </section>
 

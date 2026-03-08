@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = trim($_POST['title'] ?? '');
     $author = trim($_POST['author'] ?? '');
     $description = trim($_POST['description'] ?? '');
-    $genres = $_POST['genres'] ?? []; // массив жанров
+    $genres = $_POST['genres'] ?? []; 
     
     if (empty($title) || empty($author)) {
         $error = 'Заполните название и автора!';
@@ -27,13 +27,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             $audioName = uniqid('audio_') . '.' . $audioExt;
             $audioPath = 'uploads/audio/' . $audioName;
-            
-            // Создать папки
+
             if (!is_dir('uploads/audio')) mkdir('uploads/audio', 0777, true);
             if (!is_dir('uploads/covers')) mkdir('uploads/covers', 0777, true);
             
             if (move_uploaded_file($audioTmp, $audioPath)) {
-                // Обложка (опционально)
+     
                 $coverPath = null;
                 if (!empty($_FILES['cover']['name']) && $_FILES['cover']['error'] === UPLOAD_ERR_OK) {
                     $coverTmp = $_FILES['cover']['tmp_name'];
@@ -46,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
                 }
                 
-                // ✅ СОХРАНИТЬ ЖАНРЫ как JSON
+        
                 $genresJson = !empty($genres) ? json_encode($genres) : null;
                 
                 $stmt = $pdo->prepare("
@@ -99,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 <header class="header">
     <a href="index.php" class="back-btn">← На главную</a>
-    <h1>MAXUSIC</h1>
+    <h1>SinFY</h1>
 </header>
 
 <main class="upload-page">

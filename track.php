@@ -453,17 +453,28 @@ try {
             <a href="upload.php" class="upload-btn">Загрузить</a>
         <?php endif; ?>
         <div class="user-menu">
-            <button class="user-icon" id="userBtn"><?php echo $currentUser ? htmlspecialchars($currentUser['login']) : '👤'; ?></button>
+            <button class="user-icon" id="userBtn">
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                    <circle cx="12" cy="7" r="4" fill="currentColor"/>
+                    <path d="M20,19c0-3.87-3.13-7-7-7s-7,3.13-7,7" stroke="currentColor" stroke-width="2" fill="none"/>
+                </svg>
+            </button>
+            
             <div class="user-dropdown" id="userDropdown">
-                <?php if ($currentUser): ?>
-                    <a href="profile.php">👤 Профиль</a>
-                    <a href="settings.php">⚙️ Настройки</a>
+                <?php if (!empty($_SESSION['user_id'])): ?>
+                    <?php if ($isAdmin): ?>
+                        <a href="dashboard.php" class="dropdown-item">📊 Дашборд</a>
+                        <a href="admin_reports.php" class="dropdown-item">🔍 Модерация комментариев</a>
+                    <?php endif; ?>
+                    <a href="profile.php" class="dropdown-item">👤 Профиль</a>
+                    <a href="settings.php" class="dropdown-item">⚙️ Настройки</a>
                     <div class="dropdown-divider"></div>
-                    <a href="logout.php">🚪 Выйти</a>
+                    <a href="logout.php" class="dropdown-item">🚪 Выйти</a>
                 <?php else: ?>
-                    <a href="login.php">🔐 Войти/Регистрация</a>
+                    <a href="login.php" class="dropdown-item">🔐 Войти/Регистрация</a>
                 <?php endif; ?>
             </div>
+        </div>
         </div>
     </div>
 </header>
