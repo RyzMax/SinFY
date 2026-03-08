@@ -139,8 +139,8 @@ $allTracks = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <div class="user-dropdown" id="userDropdown">
                 <?php if (!empty($_SESSION['user_id'])): ?>
                     <?php if ($isAdmin): ?>
-                        <a href="dashboard.php" class="dropdown-item">📊 Дашборд</a>
-                        <a href="admin_reports.php" class="dropdown-item">🔍 Модерация комментариев</a>
+                        <a href="/admin/dashboard.php" class="dropdown-item">📊 Дашборд</a>
+                        <a href="/admin/admin_reports.php" class="dropdown-item">🔍 Модерация комментариев</a>
                     <?php endif; ?>
                     <a href="profile.php" class="dropdown-item">👤 Профиль</a>
                     <a href="settings.php" class="dropdown-item">⚙️ Настройки</a>

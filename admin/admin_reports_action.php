@@ -1,5 +1,5 @@
 <?php
-require_once 'db.php';
+require_once '../db.php';
 session_start();
 
 if (empty($_SESSION['user_id']) || empty($_SESSION['is_admin'])) {

@@ -1,8 +1,8 @@
 <?php
-require 'db.php';
+require '../db.php';
 
 if (empty($_SESSION['user_id']) || empty($_SESSION['is_admin'])) {
-    header('Location: index.php');
+    header('Location: ../index.php');
     exit;
 }
 

@@ -1,8 +1,8 @@
 <?php
-require 'db.php';
+require '../db.php';
 
 if (empty($_SESSION['user_id']) || empty($_SESSION['is_admin'])) {
-    header('Location: index.php');
+    header('Location: ../index.php');
     exit;
 }
 
@@ -88,7 +88,7 @@ $lastTracks = $stmtLast->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Дашборд - Maxusic</title>
-    <link rel="stylesheet" href="assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="icon" href="assets/images/note.png" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -106,7 +106,7 @@ window.dashboardData = {
         <h1>Дашборд</h1>
         <div>
             <a href="admin_reports.php" class="back-btn">Модерация</a>
-            <a href="index.php" class="back-btn">На сайт</a>
+            <a href="../index.php" class="back-btn">На сайт</a>
         </div>
     </header>
 
@@ -229,6 +229,6 @@ window.dashboardData = {
         genres: <?php echo json_encode($genresRaw); ?>
     };
     </script>
-    <script src="assets/js/dashboard.js"></script>
+    <script src="../assets/js/dashboard.js"></script>
 </body>
 </html>

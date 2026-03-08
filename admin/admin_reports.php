@@ -1,9 +1,9 @@
 <?php
-require_once 'db.php';
+require_once '../db.php';
 session_start();
 
 if (empty($_SESSION['user_id']) || empty($_SESSION['is_admin']) || $_SESSION['is_admin'] != 1) {
-    die('❌ Доступ запрещён. Только для администраторов.');
+        header('Location: ../index.php');
 }
 
 
@@ -72,7 +72,7 @@ $reports = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <div class="admin-container">
         <header style="margin-bottom: 30px;">
             <h1>🔧 Жалобы на комментарии</h1>
-            <a href="index.php" class="btn">🏠 На главную</a>
+            <a href="../index.php" class="btn">🏠 На главную</a>
             <a href="admin.php" class="btn btn-success">📋 Все жалобы</a>
         </header>
 
