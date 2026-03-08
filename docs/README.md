@@ -1,6 +1,9 @@
 
 <div align="center">
 <h2>🎵 SinFY </h2>
+ <a href="https://github.com/rahuldkjain/github-profile-readme-generator/stargazers" target="blank" >
+<img src="https://img.shields.io/github/stars/RyzMax/SinFY?style=flat-square" alt="github-profile-readme-generator stars"/>
+</a>
 </div>
 
 - SinFY это сайт для воспроизведения, а также скачивания музыки с модерацией.
