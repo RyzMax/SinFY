@@ -205,7 +205,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_track_id']) &&
 <footer class="footer">
     <div class="footer-inner">
         <span>© 2026 SinFY</span>
-        <a href="support.html">Поддержка</a>
+        <a href="support.php">Поддержка</a>
     </div>
 </footer>
 </body>

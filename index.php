@@ -323,7 +323,7 @@ $allTracks = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <footer class="footer">
     <div class="footer-inner">
         <span>© 2026 SinFY</span>
-        <a href="support.html" class="footer-link">Поддержка</a>
+        <a href="support.php" class="footer-link">Поддержка</a>
     </div>
 </footer>
 
