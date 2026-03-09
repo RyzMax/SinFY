@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $login = trim($_POST['login'] ?? '');
     $about = trim($_POST['about'] ?? '');
 
-    // Обновление аватарки
+
     $avatarPath = $user['avatar'];
 
     if (!empty($_FILES['avatar']['name']) && $_FILES['avatar']['error'] === UPLOAD_ERR_OK) {
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // Проверка на уникальность логина, если изменили
+
     if ($login !== $user['login']) {
         $check = $pdo->prepare('SELECT id FROM users WHERE login = ? AND id <> ?');
         $check->execute([$login, $userId]);
@@ -62,11 +62,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <title>Настройки профиля</title>
-    <link rel="stylesheet" href="assets/css/profile.css">
+    <link rel="stylesheet" href="../assets/css/profile.css">
 </head>
 <body>
 <header class="header">
-    <a href="profile.php" class="back-btn">← Назад в профиль</a>
+    <a href="../profile.php" class="back-btn">← Назад в профиль</a>
     <h1>Настройки профиля</h1>
 </header>
 

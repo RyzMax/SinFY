@@ -1,5 +1,6 @@
 <?php
 require_once 'db.php';
+$pdo = getDb();
 session_start();
 
 $trackId = (int)($_GET['id'] ?? 0);
@@ -231,8 +232,8 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($track['title'] ?? 'Трек'); ?> - SinFY</title>
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="icon" href="assets/images/note.png" type="image/x-icon">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="icon" href="../assets/images/note.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Tiny5&display=swap" rel="stylesheet">
     
     <style>
@@ -427,6 +428,27 @@ try {
     transform: translateY(-1px);
     box-shadow: 0 6px 16px rgba(0,0,0,0.35);
 }
+.like-btn {
+    width: 56px; height: 56px; 
+    border-radius: 50%; border: none;
+    background: #f0f0f0; color: #666;
+    font-size: 24px; cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.like-btn:hover { transform: scale(1.1); }
+.like-btn.liked {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a52) !important;
+    color: white !important;
+    box-shadow: 0 6px 20px rgba(255,107,107,0.4);
+}
+.likes-section { 
+    margin: 30px 0; padding: 25px; 
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 20px; border: 2px solid #e9ecef;
+    display: flex; align-items: center; gap: 20px;
+    max-width: 400px;
+ }
 
 
 @media (max-width: 700px) {
@@ -469,7 +491,7 @@ try {
                     <a href="profile.php" class="dropdown-item">👤 Профиль</a>
                     <a href="settings.php" class="dropdown-item">⚙️ Настройки</a>
                     <div class="dropdown-divider"></div>
-                    <a href="logout.php" class="dropdown-item">🚪 Выйти</a>
+                    <a href="../logout.php" class="dropdown-item">🚪 Выйти</a>
                 <?php else: ?>
                     <a href="login.php" class="dropdown-item">🔐 Войти/Регистрация</a>
                 <?php endif; ?>
@@ -526,7 +548,29 @@ try {
 
         </div>
     </section>
+<div class="likes-section">
+    <?php 
+    $isLikedUser = false;  
+    $likesCount = 0;       
+    ?>
+    
+    <button class="like-btn <?php echo $isLikedUser ? 'liked' : ''; ?>" 
+            data-track-id="<?php echo $track['id']; ?>"
+            onclick="toggleLike(<?php echo $track['id']; ?>)">
+        ❤️
+    </button>
+    
+   <span class="likes-count">
+<?php 
 
+$countReal = $pdo->query("SELECT COUNT(*) FROM likes WHERE track_id = {$track['id']}")->fetchColumn();
+echo number_format($countReal);
+?>
+</span>
+
+
+    <span style="color: #666;">лайков</span>
+</div>
     <?php if ($track['user_id'] && !empty($track['author_login'])): ?>
     <section class="track-author-section">
         <h2>Автор трека</h2>
@@ -687,6 +731,44 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+function toggleLike(trackId) {
+    if (!<?php echo isset($currentUser) ? 'true' : 'false'; ?>) {
+        alert('🔐 Войдите для лайков!');
+        return;
+    }
+    
+    const btn = event.target;
+    const countEl = document.querySelector('.likes-count');
+    const wasLiked = btn.classList.contains('liked');
+    
+    fetch('like.php', {  
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: 'track_id=' + trackId
+    })
+    .then(response => response.text())
+    .then(text => {
+        console.log('Ответ:', text);  
+        const data = JSON.parse(text);
+        
+        if (data.error) {
+            alert('❌ ' + data.error);
+            return;
+        }
+        
+        btn.classList.toggle('liked', data.liked);
+        countEl.textContent = data.count.toLocaleString();
+        
+        if (data.liked && !wasLiked) {
+            btn.style.transform = 'scale(1.3)';
+            setTimeout(() => btn.style.transform = '', 200);
+        }
+    })
+    .catch(err => {
+        console.error('Like error:', err);
+        alert('❌ Ошибка');
+    });
+}
 
 </script>
 </body>

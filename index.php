@@ -217,6 +217,9 @@ $allTracks = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <div class="track-cover <?php echo !$hasCover ? 'no-cover' : ''; ?>" 
                          style="<?php echo $hasCover ? 'background-image: url(' . htmlspecialchars($track['cover_path']) . '); background-size: cover; background-position: center;' : ''; ?>">
                     </div>
+                            <?php if (!$track['is_approved']): ?>
+            <div class="moderation-badge">⏳ На модерации</div>
+        <?php endif; ?>
                     <div class="track-info">
                         <h3><?php echo htmlspecialchars($track['title']); ?></h3>
                         

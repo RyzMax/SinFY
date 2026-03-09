@@ -205,3 +205,10 @@ body { font-family: Arial, sans-serif; background: #f4f4f4; }
 .follow-btn.unfollow {
     background: #757575;
 }
+.likes-section { 
+    margin: 30px 0; padding: 25px; 
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 20px; border: 2px solid #e9ecef;
+    display: flex; align-items: center; gap: 20px;
+    max-width: 400px;
+ }

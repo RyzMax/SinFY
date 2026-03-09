@@ -12,3 +12,10 @@ try {
 } catch (PDOException $e) {
     die('Ошибка подключения к БД: ' . $e->getMessage());
 }
+
+
+function getDb() {
+    global $pdo;
+    return $pdo;
+}
+?>

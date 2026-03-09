@@ -85,8 +85,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_track_id']) &&
 <head>
     <meta charset="UTF-8">
     <title><?php echo $pageTitle; ?> - SinFY</title>
-    <link rel="stylesheet" href="assets/css/profile.css">
-    <link rel="icon" href="assets/images/note.png" type="image/x-icon">
+    <link rel="stylesheet" href="../assets/css/profile.css">
+    <link rel="icon" href="../assets/images/note.png" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tiny5&display=swap" rel="stylesheet">
@@ -200,6 +200,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_track_id']) &&
             <?php endif; ?>
         </div>
     </section>
+    <!-- В profile.php после "Мои треки" -->
+<section class="profile-section">
+    <?php 
+    require_once 'likes.php';
+    $userLikes = getUserLikes($pdo, $profileUser['id']);
+    ?>
+    
+    <h3>❤️ Мои лайки 
+        <span style="color: #666; font-size: 18px;">
+            (<?php echo is_array($userLikes) ? count($userLikes) : 0; ?>)
+        </span>
+    </h3>
+    
+    <?php if (empty($userLikes)): ?>
+        <div style="text-align: center; padding: 60px 20px; color: #999;">
+            <p>❤️ Пока нет лайкнутых треков</p>
+            <p><small>Лайкайте треки → увидите здесь!</small></p>
+        </div>
+    <?php else: ?>
+        <div class="tracks-grid">
+            <?php foreach ($userLikes as $track): ?>
+            <a href="track.php?id=<?php echo $track['id']; ?>" class="track-card">
+                        <?php if (!empty($track['cover_path']) && file_exists($track['cover_path'])): ?>
+                            <img src="<?php echo htmlspecialchars($track['cover_path']); ?>" alt="Обложка" class="track-cover">
+                        <?php else: ?>
+                            <div class="track-cover no-cover-placeholder">🎵</div>
+                        <?php endif; ?>
+                <h4><?php echo htmlspecialchars($track['title']); ?></h4>
+                <p style="color: #d32f2f;"><?php echo htmlspecialchars($track['author_login'] ?? $track['author']); ?></p>
+
+            </a>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
+</section>
+
 </main>
 
 <footer class="footer">

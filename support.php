@@ -32,6 +32,6 @@
             <button type="submit">Отправить</button>
         </form>
     </div>
-    <script src="scriptS.js"></script>
+    <script src="../assets/js/scriptS.js"></script>
 </body>
 </html>

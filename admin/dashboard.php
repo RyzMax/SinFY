@@ -173,11 +173,10 @@ window.dashboardData = {
                 <table>
                     <thead>
                         <tr>
-                            <th>Обложка</th>
+                    
                             <th>Название</th>
                             <th>Автор</th>
                             <th>Дата</th>
-                            <th>Просл.</th>
                             <th>Статус</th>
                             <th>Действия</th>
                         </tr>
@@ -185,17 +184,9 @@ window.dashboardData = {
                     <tbody>
                         <?php foreach ($lastTracks as $track): ?>
                         <tr>
-                            <td>
-                                <?php if (!empty($track['cover_path']) && file_exists($track['cover_path'])): ?>
-                                    <img src="<?php echo htmlspecialchars($track['cover_path']); ?>" width="40" style="border-radius: 4px;">
-                                <?php else: ?>
-                                    🎵
-                                <?php endif; ?>
-                            </td>
                             <td><?php echo htmlspecialchars(substr($track['title'], 0, 30)); ?><?php echo strlen($track['title']) > 30 ? '...' : ''; ?></td>
                             <td><?php echo htmlspecialchars($track['author_display']); ?></td>
                             <td><?php echo date('d.m', strtotime($track['upload_date'])); ?></td>
-                            <td><?php echo number_format($track['plays'] ?? 0); ?></td>
                             <td>
                                 <span class="status <?php echo $track['is_approved'] ? 'approved' : 'pending'; ?>">
                                     <?php echo $track['is_approved'] ? '✅' : '⏳'; ?>
@@ -203,7 +194,7 @@ window.dashboardData = {
                             </td>
                             <td>
                                 <div class="table-actions">
-                                    <a href="track.php?id=<?php echo $track['id']; ?>" class="btn-small" target="_blank">👁️</a>
+                                    <a href="../track.php?id=<?php echo $track['id']; ?>" class="btn-small" target="_blank">👁️</a>
                                     <form method="post" action="moderate_track.php" style="display:inline;">
                                         <input type="hidden" name="track_id" value="<?php echo $track['id']; ?>">
                                         <?php if (!$track['is_approved']): ?>

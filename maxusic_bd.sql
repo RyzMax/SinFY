@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Мар 08 2026 г., 16:26
+-- Время создания: Мар 09 2026 г., 18:34
 -- Версия сервера: 8.0.30
 -- Версия PHP: 7.2.34
 
@@ -108,7 +108,32 @@ CREATE TABLE `follows` (
 --
 
 INSERT INTO `follows` (`id`, `follower_id`, `followed_id`, `created_at`) VALUES
-(6, 1, 2, '2026-03-06 20:22:16');
+(6, 1, 2, '2026-03-06 20:22:16'),
+(7, 2, 1, '2026-03-09 18:26:21');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `likes`
+--
+
+CREATE TABLE `likes` (
+  `id` int NOT NULL,
+  `user_id` int NOT NULL,
+  `track_id` int NOT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Дамп данных таблицы `likes`
+--
+
+INSERT INTO `likes` (`id`, `user_id`, `track_id`, `created_at`) VALUES
+(10, 1, 9, '2026-03-09 15:15:03'),
+(12, 1, 18, '2026-03-09 15:16:39'),
+(14, 1, 17, '2026-03-09 15:26:03'),
+(15, 2, 19, '2026-03-09 15:26:24'),
+(16, 2, 18, '2026-03-09 15:26:26');
 
 -- --------------------------------------------------------
 
@@ -161,25 +186,30 @@ CREATE TABLE `tracks` (
   `upload_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `plays` int DEFAULT '0',
   `is_approved` tinyint(1) NOT NULL DEFAULT '0',
-  `genres` text
+  `genres` text,
+  `likes_count` int DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Дамп данных таблицы `tracks`
 --
 
-INSERT INTO `tracks` (`id`, `user_id`, `title`, `author`, `description`, `audio_path`, `cover_path`, `upload_date`, `plays`, `is_approved`, `genres`) VALUES
-(1, NULL, 'Milk', 'toz', 'sdadsdfsdf', 'uploads/audio/1772556272_69a70ff054797.mp3', 'uploads/covers/1772556272_69a70ff054a20.png', '2026-03-03 16:44:32', 10, 1, NULL),
-(3, NULL, 'Mmm', 'asdasd', 'sfsadfsadsfg', 'uploads/audio/1772557214_69a7139e00bbf.mp3', 'uploads/covers/1772557214_69a7139e00e69.png', '2026-03-03 17:00:14', 5, 1, NULL),
-(4, NULL, 'asdzaxdzasdass', 'sdfsdfsdf', 'fdffsdfdfdfgd', 'uploads/audio/1772558653_69a7193d4a971.aac', 'uploads/covers/1772558653_69a7193d4abb5.png', '2026-03-03 17:24:13', 12, 1, NULL),
-(8, 1, 'cdfgh', 'dfghdfgh', 'dfghdfghdhgfhd', 'uploads/audio/1_1772567725_69a73cad67679.mp3', 'uploads/covers/1_1772567725_69a73cad678cc.png', '2026-03-03 19:55:25', 88, 1, NULL),
-(9, 2, 'фывфыв', 'фывфывфыв', 'фывфывфывфыв', 'uploads/audio/2_1772568577_69a740011cb4d.mp3', 'uploads/covers/2_1772568577_69a740011cd13.png', '2026-03-03 20:09:37', 104, 1, NULL),
-(12, 1, 'ываываф', 'фывафываф', 'фывафывафываа', 'uploads/audio/1_1772653011_69a889d31ca3b.wav', 'uploads/covers/1_1772653011_69a889d31cc54.jpg', '2026-03-04 19:36:51', 18, 1, NULL),
-(13, 1, 'asdasdasd', 'asdsdasd', 'asdasdasd', 'uploads/audio/audio_69a88f99f22b3.mp3', 'uploads/covers/cover_69a88f99f271a.jpg', '2026-03-04 20:01:29', 28, 1, '[\"electronic\"]'),
-(14, 1, 'asd', 'asdasasd', 'sdasdasdasd', 'uploads/audio/audio_69a8903a7dd8c.mp3', 'uploads/covers/cover_69a8903a7e102.jpg', '2026-03-04 20:04:10', 99, 1, '[\"metal\"]'),
-(15, 1, 'вапвпа', 'вапрвапр', 'авпрваервапрва', 'uploads/audio/audio_69aae404a4222.mp3', 'uploads/covers/cover_69aae404a4453.png', '2026-03-06 14:26:12', 12, 1, '[\"rock\",\"pop\",\"hiphop\"]'),
-(16, 1, 'dfgsdfg', 'sdfgsdfsdgs', '', 'uploads/audio/audio_69ad4eaf996b6.ogg', 'uploads/covers/cover_69ad4eaf999b5.png', '2026-03-08 10:25:51', 0, 1, '[\"rock\",\"rap\"]'),
-(17, 1, 'тьт', 'ыфваы', 'фвафывафывафа', 'uploads/audio/audio_69ad6e85354d8.wav', 'uploads/covers/cover_69ad6e85357ee.jpg', '2026-03-08 12:41:41', 0, 1, '[\"rock\",\"jazz\"]');
+INSERT INTO `tracks` (`id`, `user_id`, `title`, `author`, `description`, `audio_path`, `cover_path`, `upload_date`, `plays`, `is_approved`, `genres`, `likes_count`) VALUES
+(1, NULL, 'Milk', 'toz', 'sdadsdfsdf', 'uploads/audio/1772556272_69a70ff054797.mp3', 'uploads/covers/1772556272_69a70ff054a20.png', '2026-03-03 16:44:32', 10, 1, NULL, 0),
+(3, NULL, 'Mmm', 'asdasd', 'sfsadfsadsfg', 'uploads/audio/1772557214_69a7139e00bbf.mp3', 'uploads/covers/1772557214_69a7139e00e69.png', '2026-03-03 17:00:14', 5, 1, NULL, 0),
+(4, NULL, 'asdzaxdzasdass', 'sdfsdfsdf', 'fdffsdfdfdfgd', 'uploads/audio/1772558653_69a7193d4a971.aac', 'uploads/covers/1772558653_69a7193d4abb5.png', '2026-03-03 17:24:13', 12, 1, NULL, 0),
+(8, 1, 'cdfgh', 'dfghdfgh', 'dfghdfghdhgfhd', 'uploads/audio/1_1772567725_69a73cad67679.mp3', 'uploads/covers/1_1772567725_69a73cad678cc.png', '2026-03-03 19:55:25', 88, 1, NULL, 0),
+(9, 2, 'фывфыв', 'фывфывфыв', 'фывфывфывфыв', 'uploads/audio/2_1772568577_69a740011cb4d.mp3', 'uploads/covers/2_1772568577_69a740011cd13.png', '2026-03-03 20:09:37', 104, 1, NULL, 1),
+(12, 1, 'ываываф', 'фывафываф', 'фывафывафываа', 'uploads/audio/1_1772653011_69a889d31ca3b.wav', 'uploads/covers/1_1772653011_69a889d31cc54.jpg', '2026-03-04 19:36:51', 18, 1, NULL, 0),
+(13, 1, 'asdasdasd', 'asdsdasd', 'asdasdasd', 'uploads/audio/audio_69a88f99f22b3.mp3', 'uploads/covers/cover_69a88f99f271a.jpg', '2026-03-04 20:01:29', 28, 1, '[\"electronic\"]', 0),
+(14, 1, 'asd', 'asdasasd', 'sdasdasdasd', 'uploads/audio/audio_69a8903a7dd8c.mp3', 'uploads/covers/cover_69a8903a7e102.jpg', '2026-03-04 20:04:10', 99, 1, '[\"metal\"]', 0),
+(15, 1, 'вапвпа', 'вапрвапр', 'авпрваервапрва', 'uploads/audio/audio_69aae404a4222.mp3', 'uploads/covers/cover_69aae404a4453.png', '2026-03-06 14:26:12', 12, 1, '[\"rock\",\"pop\",\"hiphop\"]', 0),
+(16, 1, 'dfgsdfg', 'sdfgsdfsdgs', '', 'uploads/audio/audio_69ad4eaf996b6.ogg', 'uploads/covers/cover_69ad4eaf999b5.png', '2026-03-08 10:25:51', 0, 1, '[\"rock\",\"rap\"]', 0),
+(17, 1, 'тьт', 'ыфваы', 'фвафывафывафа', 'uploads/audio/audio_69ad6e85354d8.wav', 'uploads/covers/cover_69ad6e85357ee.jpg', '2026-03-08 12:41:41', 0, 1, '[\"rock\",\"jazz\"]', 1),
+(18, 1, 'ууувапп', 'ввввв', 'вввв', 'uploads/audio/audio_69ada31aa6511.mp3', 'uploads/covers/cover_69ada31aa67de.png', '2026-03-08 16:26:02', 0, 1, '[\"rock\",\"jazz\",\"classical\"]', 1),
+(19, 1, 'sss', 'ssss', 'sss', 'uploads/audio/audio_69ada3bee1159.mp3', 'uploads/covers/cover_69ada3bee13d0.png', '2026-03-08 16:28:46', 0, 1, '[\"rock\",\"pop\",\"hiphop\"]', 0),
+(20, 2, 'ertgdrg', 'dfgdfgdf', 'gdfgdfgdf', 'uploads/audio/audio_69aee6ebce7cf.mp3', 'uploads/covers/cover_69aee6ebcebc2.png', '2026-03-09 15:27:39', 0, 1, '[\"rock\",\"jazz\",\"rap\"]', 0),
+(21, 1, 'asdads', 'sfdsadafs', 'fasdfadfafaf', 'uploads/audio/audio_69aee7f9d3c79.mp3', 'uploads/covers/cover_69aee7f9d3fc6.png', '2026-03-09 15:32:09', 0, 1, '[\"jazz\",\"metal\"]', 0);
 
 -- --------------------------------------------------------
 
@@ -203,7 +233,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `login`, `password_hash`, `avatar`, `about`, `created_at`, `is_admin`) VALUES
-(1, 'msjdajsd@g.com', 'tozavi', '$2y$10$AZ4lgj899kt1KHyqY3kQ0u.oBjma7KQZ.G4b37zlMAk46iQ.MGw6u', 'uploads/avatars/1_1772565998.jpg', 'Lflflf', '2026-03-03 19:26:07', 1),
+(1, 'msjdajsd@g.com', 'tozavi', '$2y$10$AZ4lgj899kt1KHyqY3kQ0u.oBjma7KQZ.G4b37zlMAk46iQ.MGw6u', 'uploads/avatars/1_1772565998.jpg', 'Вау', '2026-03-03 19:26:07', 1),
 (2, 'nnn@g.com', 'kawij0', '$2y$10$W.zolxAXtdM0XWDekeYUae6ANxrVWFozs7GizwSGunhgaYT3zZ0mK', 'avatar.jpg', NULL, '2026-03-03 20:02:47', 0),
 (3, 'sadasd@ddd', 'ttttttt', '$2y$10$y1CyfZd0ifTKPxWOIfl/t.s89eU4x/nJERS0Rxf1i7J9gsoFwtCaq', 'avatar.jpg', NULL, '2026-03-03 20:21:46', 0);
 
@@ -227,6 +257,14 @@ ALTER TABLE `follows`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `uniq_follow` (`follower_id`,`followed_id`),
   ADD KEY `fk_followed` (`followed_id`);
+
+--
+-- Индексы таблицы `likes`
+--
+ALTER TABLE `likes`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `unique_like` (`user_id`,`track_id`),
+  ADD KEY `track_user` (`track_id`,`user_id`);
 
 --
 -- Индексы таблицы `reports`
@@ -265,7 +303,13 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT для таблицы `follows`
 --
 ALTER TABLE `follows`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT для таблицы `likes`
+--
+ALTER TABLE `likes`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT для таблицы `reports`
@@ -277,7 +321,7 @@ ALTER TABLE `reports`
 -- AUTO_INCREMENT для таблицы `tracks`
 --
 ALTER TABLE `tracks`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
@@ -303,6 +347,13 @@ ALTER TABLE `comments`
 ALTER TABLE `follows`
   ADD CONSTRAINT `fk_followed` FOREIGN KEY (`followed_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `fk_follower` FOREIGN KEY (`follower_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Ограничения внешнего ключа таблицы `likes`
+--
+ALTER TABLE `likes`
+  ADD CONSTRAINT `likes_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `likes_ibfk_2` FOREIGN KEY (`track_id`) REFERENCES `tracks` (`id`) ON DELETE CASCADE;
 
 --
 -- Ограничения внешнего ключа таблицы `reports`
