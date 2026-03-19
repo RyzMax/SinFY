@@ -217,9 +217,6 @@ $allTracks = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <div class="track-cover <?php echo !$hasCover ? 'no-cover' : ''; ?>" 
                          style="<?php echo $hasCover ? 'background-image: url(' . htmlspecialchars($track['cover_path']) . '); background-size: cover; background-position: center;' : ''; ?>">
                     </div>
-                            <?php if (!$track['is_approved']): ?>
-            <div class="moderation-badge">⏳ На модерации</div>
-        <?php endif; ?>
                     <div class="track-info">
                         <h3><?php echo htmlspecialchars($track['title']); ?></h3>
                         
@@ -330,8 +327,6 @@ $allTracks = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </div>
 </footer>
 
-<script src="scriptIndex.js"></script>
-
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('searchInput');
@@ -368,6 +363,22 @@ document.addEventListener('DOMContentLoaded', function() {
         clearBtn.addEventListener('click', () => window.location.href = 'index.php');
     }
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const userBtn = document.getElementById('userBtn');
+    const userDropdown = document.getElementById('userDropdown');
+
+    userBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        userDropdown.classList.toggle('active');
+    });
+
+
+    document.addEventListener('click', function() {
+        userDropdown.classList.remove('active');
+    });
+});
+
 </script>
 </body>
 </html>
