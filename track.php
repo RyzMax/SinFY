@@ -509,13 +509,12 @@ try {
         </div>
         <div class="track-details">
             <h1><?php echo htmlspecialchars($track['title']); ?></h1>
-            <p class="track-author"><?php echo htmlspecialchars($track['author_display']); ?></p>
+            <p class="track-author"><?php echo htmlspecialchars($track['author']); ?></p>
             <?php if (!empty($track['description'])): ?>
                 <p class="track-description"><?php echo nl2br(htmlspecialchars($track['description'])); ?></p>
             <?php endif; ?>
             <div class="track-meta">
                 <span>⏱️ <?php echo date('d.m.Y H:i', strtotime($track['upload_date'])); ?></span>
-                <span>▶️ <?php echo (int)($track['plays'] ?? 0); ?> просл.</span>
             </div>
             <div class="player-card">
 
@@ -573,7 +572,7 @@ echo number_format($countReal);
 </div>
     <?php if ($track['user_id'] && !empty($track['author_login'])): ?>
     <section class="track-author-section">
-        <h2>Автор трека</h2>
+        <h2>Кто выложил:</h2>
         <a href="profile.php?user=<?php echo $track['user_id']; ?>" class="author-card">
             <div class="author-avatar" style="background-image: url('<?php echo htmlspecialchars($track['author_avatar'] ?? 'avatar.jpg'); ?>');"></div>
             <div class="author-info">
