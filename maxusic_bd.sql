@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Мар 21 2026 г., 18:59
+-- Время создания: Мар 21 2026 г., 21:55
 -- Версия сервера: 8.0.30
 -- Версия PHP: 7.2.34
 
@@ -134,7 +134,8 @@ CREATE TABLE `tracks` (
 
 INSERT INTO `tracks` (`id`, `user_id`, `title`, `author`, `description`, `audio_path`, `cover_path`, `upload_date`, `plays`, `is_approved`, `genres`, `likes_count`) VALUES
 (23, 1, 'Rollin (Air Raid Venicle)', 'Limp Bizkit', '«Rollin’ (Air Raid Vehicle)» — песня группы Limp Bizkit, выпущенная в качестве третьего сингла вместе с «My Generation» 10 октября 2000 года с третьего студийного альбома Chocolate Starfish and the Hot Dog Flavored Water.\r\n\r\nСуществует ремикс «Rollin’ (Urban Assault Vehicle)» с участием хип-хоп исполнителей DMX, Method Man и Redman при создании Swizz Beatz. Он был саундтреком к фильму «Форсаж». Ремикс был также включён в треклист альбома.', 'uploads/audio/audio_69bd543a256f4.mp3', 'uploads/covers/cover_69bd543a26132.jpg', '2026-03-20 14:05:46', 0, 1, '[\"rock\"]', 0),
-(24, 5, 'This ffire', 'Franz Ferdinand', '\"This Fire\" is a song by Scottish indie rock band Franz Ferdinand, the seventh track on their self-titled debut album. It was written by Alex Kapranos and Nick McCarthy and produced by the band themselves at their studio in Scotland during 2003. A new version of the song, produced by Rich Costey, was released as a single on 4 October 2004, titled \"This Fffire\". The single artwork is based on El Lissitzky\'s art work Beat the Whites with the Red Wedge', 'uploads/audio/audio_69beb3d827d3d.mp3', 'uploads/covers/cover_69beb3d82820e.jpg', '2026-03-21 15:06:00', 0, 1, '[\"rock\"]', 0);
+(24, 5, 'This ffire', 'Franz Ferdinand', '\"This Fire\" is a song by Scottish indie rock band Franz Ferdinand, the seventh track on their self-titled debut album. It was written by Alex Kapranos and Nick McCarthy and produced by the band themselves at their studio in Scotland during 2003. A new version of the song, produced by Rich Costey, was released as a single on 4 October 2004, titled \"This Fffire\". The single artwork is based on El Lissitzky\'s art work Beat the Whites with the Red Wedge', 'uploads/audio/audio_69beb3d827d3d.mp3', 'uploads/covers/cover_69beb3d82820e.jpg', '2026-03-21 15:06:00', 0, 1, '[\"rock\"]', 0),
+(27, 1, 'Buddy Holly', 'Weezer', '«Buddy Holly» (с англ. — «Бадди Холли») — песня, исполненная американской альтернативной рок группой Weezer и выпущенная в качестве ведущего сингла из одноимённого дебютного студийного альбома.\r\n\r\nБудучи одним из главных хитов группы, занял 484-е место в списке «500 величайших песен всех времён по версии журнала Rolling Stone» и 429-е место в списке «500 величайших песен всех времён по версии журнала New Musical Express»', 'uploads/audio/audio_69bec2cb660c6.mp3', 'uploads/covers/cover_69bec2cb66428.jpg', '2026-03-21 16:09:47', 0, 1, '[\"rock\"]', 0);
 
 -- --------------------------------------------------------
 
@@ -247,7 +248,7 @@ ALTER TABLE `reports`
 -- AUTO_INCREMENT для таблицы `tracks`
 --
 ALTER TABLE `tracks`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
