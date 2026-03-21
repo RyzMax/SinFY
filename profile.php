@@ -195,14 +195,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_track_id']) &&
                             <p class="track-author"><?php echo htmlspecialchars($track['author_display']); ?></p>
                             <p class="track-meta">
                                 <?php echo date('d.m.Y', strtotime($track['upload_date'])); ?> • 
+                                 <?php if ($isOwnProfile): ?>
                                 <div class="track-status">
+                                
                                     <?php if (!$track['is_approved']): ?>
                                         <span style="color: #ff9800; font-weight: 500;">⏳ На модерации</span>
                                         <?php else: ?>
                                             <span style="color: #4caf50; font-weight: 500;">✅ Опубликовано</span>
                                         <?php endif; ?>
                                </div>
+                                 <?php endif; ?>
                             </p>
+                            <?php if ($isOwnProfile): ?>
+                                <form method="post" style="margin-top:12px;">
+                                    <input type="hidden" name="delete_track_id" value="<?php echo $track['id']; ?>">
+                                    <button type="submit" class="delete-btn" 
+                                            onclick="return confirm('Удалить «<?php echo htmlspecialchars($track['title']); ?>»?')">
+                                        🗑️ Удалить
+                                    </button>
+                                </form>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </a>
