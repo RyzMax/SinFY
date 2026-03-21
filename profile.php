@@ -199,9 +199,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_track_id']) &&
                                 <div class="track-status">
                                 
                                     <?php if (!$track['is_approved']): ?>
-                                        <span style="color: #ff9800; font-weight: 500;">⏳ На модерации</span>
+                                        <span style="font-weight: 500;">⏳ На модерации</span>
                                         <?php else: ?>
-                                            <span style="color: #4caf50; font-weight: 500;">✅ Опубликовано</span>
+                                            <span style="font-weight: 500;">✅ Опубликовано</span>
                                         <?php endif; ?>
                                </div>
                                  <?php endif; ?>
@@ -237,9 +237,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_track_id']) &&
     
     <?php if (empty($userLikes)): ?>
         <div style="text-align: center; padding: 60px 20px; color: #999;">
+             <?php if ($isOwnProfile): ?>
             <p>❤️ Пока нет лайкнутых треков</p>
             <p><small>Лайкайте треки → увидите здесь!</small></p>
+            <?php else: ?>
+                 <p>❤️ Пока нет лайкнутых треков</p>
+             <?php endif; ?>
         </div>
+        
     <?php else: ?>
         <div class="tracks-grid">
             <?php foreach ($userLikes as $track): ?>
