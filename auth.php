@@ -64,5 +64,5 @@ if ($action === 'login') {
     exit;
 }
 
-// если что-то не так:
+
 header('Location: login.php');

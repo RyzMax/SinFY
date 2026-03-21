@@ -90,20 +90,40 @@ function renderComment($comment, $currentUser, $trackId, $depth = 0) {
     ?>
     <div class="comment-item depth-<?php echo $depth; ?> <?php echo $isOwnComment ? 'my-comment' : ''; ?>" 
          data-comment-id="<?php echo $comment['id']; ?>">
-        
-        <div class="comment-header">
-            <img src="<?php echo htmlspecialchars($comment['commenter_avatar']); ?>" 
-                 class="comment-avatar" alt="Аватар" loading="lazy">
-            <div class="comment-info">
-                <strong><?php echo htmlspecialchars($comment['username'] ?? $comment['username_display']); ?></strong>
-                <?php if ($isOwnComment): ?>
-                    <span class="own-label">(это вы)</span>
-                <?php endif; ?>
-                <span class="comment-date">
-                    <?php echo date('d.m.Y H:i', strtotime($comment['created_at'])); ?>
-                </span>
-            </div>
-        </div>
+        <?php
+    $displayName = htmlspecialchars($comment['username'] ?? $comment['username_display']);
+    $commentUserId = (int)($comment['user_id'] ?? 0);
+?>
+
+<div class="comment-header">
+    <a 
+        class="comment-avatar-link" 
+        <?php if ($commentUserId > 0): ?>
+            href="profile.php?user=<?php echo $commentUserId; ?>"
+        <?php endif; ?>
+    >
+        <img src="<?php echo htmlspecialchars($comment['commenter_avatar']); ?>" 
+             class="comment-avatar" alt="Аватар" loading="lazy">
+    </a>
+
+    <div class="comment-info">
+        <?php if ($commentUserId > 0): ?>
+            <a href="profile.php?user=<?php echo $commentUserId; ?>" class="comment-username-link">
+                <strong><?php echo $displayName; ?></strong>
+            </a>
+        <?php else: ?>
+            <strong><?php echo $displayName; ?></strong>
+        <?php endif; ?>
+
+        <?php if ($isOwnComment): ?>
+            <span class="own-label">(это вы)</span>
+        <?php endif; ?>
+
+        <span class="comment-date">
+            <?php echo date('d.m.Y H:i', strtotime($comment['created_at'])); ?>
+        </span>
+    </div>
+</div>
         
         <div class="comment-text">
             <?php echo nl2br(htmlspecialchars($comment['comment_text'])); ?>

@@ -79,7 +79,6 @@ if (!empty($_GET['genres'])) {
 
 $whereClause = !empty($whereConditions) ? 'WHERE ' . implode(' AND ', $whereConditions) : '';
 
-// Твои треки (всегда показываем)
 $myTracks = [];
 if (!empty($_SESSION['user_id'])) {
     $stmtMy = $pdo->prepare('
@@ -94,7 +93,7 @@ if (!empty($_SESSION['user_id'])) {
     $myTracks = $stmtMy->fetchAll(PDO::FETCH_ASSOC);
 }
 
-// Все треки с фильтрами
+
 $stmt = $pdo->prepare("
     SELECT t.*, COALESCE(u.login, t.author) as author_display
     FROM tracks t 

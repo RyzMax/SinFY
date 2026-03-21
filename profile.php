@@ -171,36 +171,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_track_id']) &&
                 <?php if ($isOwnProfile): ?> <a href="upload.php">Загрузить первый</a><?php endif; ?></p>
             <?php else: ?>
                 <?php foreach ($tracks as $track): ?>
+                    <a href="track.php?id=<?php echo $track['id']; ?>" class="track-link">
                     <div class="track-card">
-                        <?php if (!empty($track['cover_path']) && file_exists($track['cover_path'])): ?>
-                            <img src="<?php echo htmlspecialchars($track['cover_path']); ?>" alt="Обложка" class="track-cover">
-                        <?php else: ?>
-                            <div class="track-cover no-cover-placeholder">🎵</div>
-                        <?php endif; ?>
+                        <?php $hasCover = !empty($track['cover_path']) && file_exists($track['cover_path']); ?>
+                        <div class="track-cover <?php echo !$hasCover ? 'no-cover' : ''; ?>" 
+                             style="<?php echo $hasCover ? 'background-image: url(' . htmlspecialchars($track['cover_path']) . '); background-size: cover; background-position: center;' : ''; ?>">
+                        </div>
                         <div class="track-info">
                             <h3><?php echo htmlspecialchars($track['title']); ?></h3>
-                            <p class="track-author"><?php echo htmlspecialchars($track['author']); ?></p>
-                            <p class="track-meta"><?php echo date('d.m.Y', strtotime($track['upload_date'])); ?></p>
-                            <audio controls preload="metadata">
-                                <source src="<?php echo htmlspecialchars($track['audio_path']); ?>" type="audio/mpeg">
-                            </audio>
-                           
-                            <?php if ($isOwnProfile): ?>
-                                <form method="post" style="margin-top:12px;">
-                                    <input type="hidden" name="delete_track_id" value="<?php echo $track['id']; ?>">
-                                    <button type="submit" class="delete-btn" 
-                                            onclick="return confirm('Удалить «<?php echo htmlspecialchars($track['title']); ?>»?')">
-                                        🗑️ Удалить
-                                    </button>
-                                </form>
+                            
+                        
+                            <?php 
+                            $trackGenres = json_decode($track['genres'], true) ?? [];
+                            if (!empty($trackGenres)): 
+                            ?>
+                            <div class="track-genres">
+                                <?php foreach (array_slice($trackGenres, 0, 3) as $genre): ?>
+                                    <span class="genre-badge"><?php echo ucfirst($genre); ?></span>
+                                <?php endforeach; ?>
+                            </div>
                             <?php endif; ?>
+                            
+                            <p class="track-author"><?php echo htmlspecialchars($track['author_display']); ?></p>
+                            <p class="track-meta">
+                                <?php echo date('d.m.Y', strtotime($track['upload_date'])); ?> • 
+                                <div class="track-status">
+                                    <?php if (!$track['is_approved']): ?>
+                                        <span style="color: #ff9800; font-weight: 500;">⏳ На модерации</span>
+                                        <?php else: ?>
+                                            <span style="color: #4caf50; font-weight: 500;">✅ Опубликовано</span>
+                                        <?php endif; ?>
+                               </div>
+                            </p>
                         </div>
                     </div>
+                </a>
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>
     </section>
-    <!-- В profile.php после "Мои треки" -->
+
 <section class="profile-section">
     <?php 
     require_once 'likes.php';
